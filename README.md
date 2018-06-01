@@ -1,5 +1,6 @@
 # MATLAB IMAGE ZOOM & PAN
 A MatLab code plugin that provides mouse zoom &amp; pan functionality for 2D images.
+
 The function adds instant mouse zoom (mouse wheel) and pan (mouse drag) capabilities to figures,
 designed for displaying 2D images in applications (e.g. GUIDE) that require lots of drag & zoom.
 
@@ -15,13 +16,11 @@ Features:
 
 After adding the imgzoompan.m file to your project, you can use the **imgzoompan()** function.
 
-```matlab
-**imgzoompan(hfig, <options>)**: will add the zoom & pan functionality to the figure
+**imgzoompan(hfig, options)**: will add the zoom & pan functionality to the figure
 handler provided, followed by an optional arbitrary number of options in the usual Matlab
 format (pairs of: 'OptionName', OptionValue).
-```
 
-## Configuration:
+## Configuration options:
 
 Although everything is optional, its recommended to at least provide the image dimensions
 (ImgWidth, ImgHeight) for full drag & zoom functionality.
@@ -46,8 +45,8 @@ Although everything is optional, its recommended to at least provide the image d
                       A value of 0 disables this functionality (default: 3).
  * **ButtonDownFcn**: Mouse button down function callback. Recieves a function reference to your custom
                    ButtonDown handler, which will be executed first. Your function must have the arguments
-                   (hObject, event) and will work as described in Matlab's documentation for
-                   'WindowButtonDownFcn'. See example2.mat for example code.
+                   (hObject, event) and will work as described in [Matlab's documentation for
+                   'WindowButtonDownFcn'](https://www.mathworks.com/help/matlab/ref/matlab.ui.figure-properties.html#buiwuyk-1-WindowButtonDownFcn). See **examples/example2.m** for related example code.
  * **ButtonUpFcn**: Mouse button up function callback. Works the same way as the 'ButtonDownFcn' option.
 
 ## Zoom behaviour:

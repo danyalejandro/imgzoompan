@@ -9,6 +9,7 @@ Features:
 * Designed to mimic behavior from common image viewers.
 * Prevents the user from zooming out when the image is smaller than the Figure.
 * User cannot zoom or drag the image outside of the Figure.
+* Improved panning method to deal with MATLAB's lack of anti-aliasing (no deformation on high zoom level).
 * Lets you add callback functions for the mouse ButtonDown / ButtonUp events (you don't lose control).
 * Lots of configuration options.
 
@@ -26,27 +27,31 @@ Although everything is optional, its recommended to at least provide the image d
 (ImgWidth, ImgHeight) for full drag & zoom functionality.
 
 *Zoom configuration:*
- * **Magnify**: General magnitication factor. 1.0 or greater (default: 1.1).
+ * **Magnify**: General magnitication factor. 1.0 or greater (default: 1.1). A value of **2.0** solves the
+                zoom & pan deformations caused by MATLAB's (awful) embedded image resize method.
  * **XMagnify**: Magnification factor of X axis (default: 1.0).
  * **YMagnify**: Magnification factor of Y axis (default: 1.0).
  * **ChangeMagnify**: Relative increase of the magnification factor. 1.0 or greater (default: 1.1).
  * **IncreaseChange**: Relative increase in the ChangeMagnify factor. 1.0 or greater (default: 1.1).
  * **MinValue**: Sets the minimum value for Magnify, ChangeMagnify and IncreaseChange (default: 1.1).
+ * **MaxZoomScrollCount**: Maximum number of scroll zoom-in steps; might need adjustements depending on your
+                           image dimensions & _Magnify_ value (default: 30).
 
 *Pan configuration:*
  * **ImgWidth**: Original image pixel width. A value of 0 disables the functionality that prevents the user
-              from dragging and zooming outside of the image (default: 0).
+                 from dragging and zooming outside of the image (default: 0).
  * **ImgHeight**: Original image pixel height (default: 0).
 
 *Mouse options and callbacks:*
  * **PanMouseButton**: Mouse button used for panning: 1: left, 2: right, 3: middle.
-                    A value of 0 disables this functionality (default: 2).
+                       A value of 0 disables this functionality (default: 2).
  * **ResetMouseButton**: Mouse button used for resetting zoom & pan: 1: left, 2: right, 3: middle.
-                      A value of 0 disables this functionality (default: 3).
+                         A value of 0 disables this functionality (default: 3).
  * **ButtonDownFcn**: Mouse button down function callback. Recieves a function reference to your custom
-                   ButtonDown handler, which will be executed first. Your function must have the arguments
-                   (hObject, event) and will work as described in [Matlab's documentation for
-                   'WindowButtonDownFcn'](https://www.mathworks.com/help/matlab/ref/matlab.ui.figure-properties.html#buiwuyk-1-WindowButtonDownFcn). See **examples/example2.m** for related example code.
+                      ButtonDown handler, which will be executed first. Your function must have the arguments
+                      (hObject, event) and will work as described in [Matlab's documentation for
+                      'WindowButtonDownFcn'](https://www.mathworks.com/help/matlab/ref/matlab.ui.figure-properties.html#buiwuyk-1-WindowButtonDownFcn).
+                      See **examples/example2.m** for related example code.
  * **ButtonUpFcn**: Mouse button up function callback. Works the same way as the 'ButtonDownFcn' option.
 
 ## Zoom behaviour:

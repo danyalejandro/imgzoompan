@@ -82,7 +82,7 @@ function imgzoompan(hfig, varargin)
 			newYLim = (axish.YLim - cpaxes(2)) * (opt.Magnify * opt.YMagnify)^scrollChange + cpaxes(2);
 			
 			newXLim = floor(newXLim);
-			newYLim = floor(newYLim);
+			newXLim = floor(newXLim);
 			% only check for image border location if user provided ImgWidth
 			if (opt.ImgWidth > 0)
 				if (newXLim(1) >= 0 && newXLim(2) <= opt.ImgWidth && newYLim(1) >= 0 && newYLim(2) <= opt.ImgHeight)
@@ -99,7 +99,9 @@ function imgzoompan(hfig, varargin)
 				axish.YLim = newYLim;
 				zoomScrollCount = zoomScrollCount - scrollChange;
 			end
-			%fprintf('XLim: [%.3f, %.3f], YLim: [%.3f, %.3f]\n', axish.XLim(1), axish.XLim(2), axish.YLim(1), axish.YLim(2));
+			
+			
+			fprintf('XLim: [%.3f, %.3f], YLim: [%.3f, %.3f]\n', axish.XLim(1), axish.XLim(2), axish.YLim(1), axish.YLim(2));
 		end
 	end 
 
@@ -201,10 +203,6 @@ function imgzoompan(hfig, varargin)
 
 		newYLims(1) = -deltaY*diff(YLim)+YLim(1);         % YLims
 		newYLims(2) = newYLims(1)+diff(YLim);
-		
-		% MATLAB lack of anti-aliasing deforms the image if XLims & YLims are not integers
-		newXLims = round(newXLims);
-		newYLims = round(newYLims);
 		
 		% Update Axes limits
 		if (newXLims(1) > 0.0 && newXLims(2) < opt.ImgWidth)

@@ -47,14 +47,16 @@ Although everything is optional, its recommended to at least provide the image d
                        A value of 0 disables this functionality (default: 2).
  * **ResetMouseButton**: Mouse button used for resetting zoom & pan: 1: left, 2: right, 3: middle.
                          A value of 0 disables this functionality (default: 3).
- * **ButtonDownFcn**: Mouse button down function callback. Recieves a function reference to your custom
+ * **ButtonDownFcn**: Mouse button down function callback. Receives a function reference to your custom
                       ButtonDown handler, which will be executed first. Your function must have the arguments
                       (hObject, event) and will work as described in [Matlab's documentation for
                       'WindowButtonDownFcn'](https://www.mathworks.com/help/matlab/ref/matlab.ui.figure-properties.html#buiwuyk-1-WindowButtonDownFcn).
-                      See **examples/example2.m** for related example code.
+                      See **examples/example2.m** for related example code. Notice that this and the _ButtonUpFcn_
+					  callback are triggered from the **Figure**, so if you display the image in an Axis or
+					  some other element, you can use their callbacks as well.
  * **ButtonUpFcn**: Mouse button up function callback. Works the same way as the 'ButtonDownFcn' option.
 
-## Zoom behaviour:
+## Zoom & Pan behaviour:
 
 The magnification along the X axis is given by the formula
 
@@ -64,8 +66,9 @@ and analogously for the Y axis. Whether zooming in (incrementing the
 distance between data points) or zooming out (decrementing the distance
 between data points) depends on the direction of rotation of the mouse wheel.
 
-Notice that this code **modifies** the **WindowScrollWheelFcn** callback function in your figure, loosing
-any of its previous functionality.
+Notice that this code **modifies** the **WindowScrollWheelFcn** callback function in your Figure, loosing
+any of its previous functionality. All mouse events are captured at the Figure object (which might not be the
+element you use to display your image).
 
 ## Usage and examples:
 

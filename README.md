@@ -23,7 +23,7 @@ format (pairs of: 'OptionName', OptionValue).
 
 ## Configuration options:
 
-Although everything is optional, its recommended to at least provide the image dimensions
+Although everything is optional, it's recommended to at least provide the image dimensions
 (ImgWidth, ImgHeight) for full drag & zoom functionality.
 
 *Zoom configuration:*

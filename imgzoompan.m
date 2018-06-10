@@ -24,7 +24,7 @@
 function imgzoompan(hfig, varargin)
 	% Parse configuration options
 	if ~ishandle(hfig)
-		error('The first input argument should be an axis handle.');
+		error('The first input argument should be a handle.');
 	end
 
 	p = inputParser;

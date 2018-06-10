@@ -48,12 +48,12 @@ Although everything is optional, it's recommended to at least provide the image 
  * **ResetMouseButton**: Mouse button used for resetting zoom & pan: 1: left, 2: right, 3: middle.
                          A value of 0 disables this functionality (default: 3).
  * **ButtonDownFcn**: Mouse button down function callback. Receives a function reference to your custom
-                      ButtonDown handler, which will be executed first. Your function must have the arguments
+                      ButtonDown handler, which will be executed before zoom & pan. Your function must have the arguments
                       (hObject, event) and will work as described in [Matlab's documentation for
                       'WindowButtonDownFcn'](https://www.mathworks.com/help/matlab/ref/matlab.ui.figure-properties.html#buiwuyk-1-WindowButtonDownFcn).
-                      See **examples/example2.m** for related example code. Notice that this and the _ButtonUpFcn_
+                      (See _examples/example2.m_). Notice that this and the _ButtonUpFcn_
 					  callback are triggered from the **Figure**, so if you display the image in an Axis or
-					  some other element, you can use their callbacks as well.
+					  some other element, you can use their callbacks instead (See _examples/example3.m_).
  * **ButtonUpFcn**: Mouse button up function callback. Works the same way as the 'ButtonDownFcn' option.
 
 ## Zoom & Pan behaviour:
@@ -66,9 +66,16 @@ and analogously for the Y axis. Whether zooming in (incrementing the
 distance between data points) or zooming out (decrementing the distance
 between data points) depends on the direction of rotation of the mouse wheel.
 
-Notice that this code **modifies** the **WindowScrollWheelFcn** callback function in your Figure, loosing
-any of its previous functionality. All mouse events are captured at the Figure object (which might not be the
-element you use to display your image).
+## Callback behavior & tips:
+
+* All mouse events are captured at the Figure object (which might not be the
+  element you use to display your image).
+* This code **modifies** the **WindowScrollWheelFcn**, **WindowButtonDownFcn** and **WindowButtonUpFcn** callback functions
+  in your Figure, loosing any previous functionality. If needed, use the _ButtonDownFcn_ and _ButtonUpFcn_ to add functionality
+  without losing zoom & pan.
+* If you use imgshow() or image() to display an image in an element (e.g. an Axes object), these
+  functions change many properties of your object and will clear your callbacks. Make sure you
+  add the callbacks programatically _after_ calling said functions, as shown in _examples/example3.m_.
 
 ## Usage and examples:
 
@@ -81,7 +88,12 @@ imshow(Img);
 [h, w, ~] = size(Img);
 imgzoompan(gca, 'ImgWidth', w, 'ImgHeight', h);
 ```
-See _example1.m_ and _example2.m_ for code examples. Example 2 shows how to use custom mouse button callbacks.
+The following code examples are included:
+
+* **example1.m**  Shows the most basic use case: load and display an image.
+* **example2.m**: Adds custom mouse button callbacks to the root Figure (all clicks captured).
+* **example3.m**: Adds a custom mouse button callback to the image object shown in the Axes (only captures clicks in
+                  visible parts of the image).
 
 ## Acknowledgements:
 

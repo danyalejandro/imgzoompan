@@ -1,3 +1,4 @@
+addpath('../');
 % Simple use case: Load an image (provided) and show it,
 % then add zoompan functionality (in this case to the current axes: gca)
 % When using GUIDE, provide a handler to your own axes.

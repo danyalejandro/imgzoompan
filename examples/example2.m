@@ -1,5 +1,7 @@
-% Following example1.m, this extended version provides custom function handlers
-% for the ButtonDown and ButtonUp mouse events.
+addpath('../');
+% Continuing from example1.m, this example provides custom function handlers
+% for the ButtonDown and ButtonUp mouse events from the root Figure.
+
 Img = imread('myimage.jpg');
 imshow(Img);
 [h, w, ~] = size(Img);

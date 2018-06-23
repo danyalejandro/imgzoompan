@@ -18,8 +18,9 @@ Features:
 After adding the imgzoompan.m file to your project, you can use the **imgzoompan()** function.
 
 **imgzoompan(hfig, options)**: will add the zoom & pan functionality to the figure
-handler provided, followed by an optional arbitrary number of options in the usual Matlab
-format (pairs of: 'OptionName', OptionValue).
+handler provided (*right click* for pan, *wheel scroll* for zoom, *wheel press* to reset),
+followed by an optional arbitrary number of options in the usual Matlab format
+(pairs of: 'OptionName', OptionValue).
 
 ## Configuration options:
 

@@ -112,7 +112,7 @@ function imgzoompan(hfig, varargin)
 		% Panning action
 		panBt = opt.PanMouseButton;
 		if (panBt > 0)
-			if (panBt == 1 && strcmp(clickType, 'extend')) || (panBt == 2 && strcmp(clickType, 'alt')) || (panBt == 3 && strcmp(clickType, 'extend'))
+			if (panBt == 1 && strcmp(clickType, 'normal')) || (panBt == 2 && strcmp(clickType, 'alt')) || (panBt == 3 && strcmp(clickType, 'extend'))
 				guiArea = hittest(hObj);
 				parentAxes = ancestor(guiArea,'axes');
 
@@ -134,7 +134,7 @@ function imgzoompan(hfig, varargin)
 		clickType = evt.Source.SelectionType;
 		resBt = opt.ResetMouseButton;
 		if (resBt > 0 && ~isempty(orig.XLim))
-			if (resBt == 1 && strcmp(clickType, 'extend')) || (resBt == 2 && strcmp(clickType, 'alt')) || (resBt == 3 && strcmp(clickType, 'extend'))
+			if (resBt == 1 && strcmp(clickType, 'normal')) || (resBt == 2 && strcmp(clickType, 'alt')) || (resBt == 3 && strcmp(clickType, 'extend'))
 				guiArea = hittest(hObj);
 				parentAxes = ancestor(guiArea,'axes');
 				parentAxes.XLim=orig.XLim;

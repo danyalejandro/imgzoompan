@@ -3,13 +3,13 @@ function imgzoompan(hfig, varargin)
 %
 % function imgzoompan(hfig, varargin)
 %
-% Purpose
+%% Purpose
 % This function provides instant mouse zoom (mouse wheel) and pan (mouse drag) capabilities 
 % to figures, designed for displaying 2D images that require lots of drag & zoom. For more
 % details see README file.
 %
 % 
-% Inputs (optional param/value pairs)
+%% Inputs (optional param/value pairs)
 % The following relate to zoom config
 % * 'Magnify' General magnitication factor. 1.0 or greater (default: 1.1). A value of 2.0 
 %             solves the zoom & pan deformations caused by MATLAB's embedded image resize method.
@@ -24,22 +24,26 @@ function imgzoompan(hfig, varargin)
 % 'ImgWidth' Original image pixel width. A value of 0 disables the functionality that prevents the 
 %            user from dragging and zooming outside of the image (default: 0).
 % 'ImgHeight' Original image pixel height (default: 0).
-
 %
-% Please visit https://github.com/danyalejandro/imgzoompan (or check the README.md text file) for
-% full instructions and examples on how to use this plugin.
-
+%
+%% Outputs
+%  none
+%
+% 
 %% ACKNOWLEDGEMENTS:
 %
 % *) Hugo Eyherabide (Hugo.Eyherabide@cs.helsinki.fi) as this project uses his code
 %    (FileExchange: zoom_wheel) as reference for zooming functionality.
 % *) E. Meade Spratley for his mouse panning example (FileExchange: MousePanningExample).
 % *) Alex Burden for his technical and emotional support.
-
+%
 % Send code updates, bug reports and comments to: Dany Cabrera (dcabrera@uvic.ca)
-
+% Please visit https://github.com/danyalejandro/imgzoompan (or check the README.md text file) for
+% full instructions and examples on how to use this plugin.
+%
 %% Copyright (c) 2018, Dany Alejandro Cabrera Vargas, University of Victoria, Canada,
 % published under BSD license (http://www.opensource.org/licenses/bsd-license.php).
+
 
     % Parse configuration options
     if ~ishandle(hfig)
@@ -61,8 +65,8 @@ function imgzoompan(hfig, varargin)
     % Mouse options and callbacks
     p.addOptional('PanMouseButton', 2, @isnumeric);
     p.addOptional('ResetMouseButton', 3, @isnumeric);
-    p.addOptional('ButtonDownFcn', @emptyFcn);
-    p.addOptional('ButtonUpFcn', @emptyFcn);
+    p.addOptional('ButtonDownFcn',  @(~,~) 0);
+    p.addOptional('ButtonUpFcn', @(~,~) 0) ;
     
     % Parse & Sanitize options
     parse(p, varargin{:});
@@ -164,9 +168,6 @@ function imgzoompan(hfig, varargin)
         stopPan();
     end
 
-    % Helper empty function, runs if there's no mouse buttondown/up callback configured by the user
-    function emptyFcn(~, ~)
-    end
 
     %% AXIS PANNING FUNCTIONS
     

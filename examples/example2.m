@@ -5,7 +5,7 @@ addpath('../');
 Img = imread('myimage.jpg');
 imshow(Img);
 [h, w, ~] = size(Img);
-imgzoompan(gca, 'ImgWidth', w, 'ImgHeight', h, 'ButtonDownFcn', @myFuncDown, 'ButtonUpFcn', @myFuncUp);
+imgzoompan(gcf, 'ImgWidth', w, 'ImgHeight', h, 'ButtonDownFcn', @myFuncDown, 'ButtonUpFcn', @myFuncUp);
 
 % Custom button down function handler
 function myFuncDown(hObject, event)

@@ -45,11 +45,17 @@ function imgzoompan(hfig, varargin)
 % published under BSD license (http://www.opensource.org/licenses/bsd-license.php).
 
 
-    % Parse configuration options
-    if ~ishandle(hfig)
-        error('The first input argument should be a handle.');
+    %  Run in current figure unless otherwise requested
+    if isempty(findobj('type','figure'))
+        fprintf('%s -- finds no open figure windows. Quitting.\n', mfilename)
+        return
     end
 
+    if nargin==0 || isempty(hfig) || ~isa(hfig,'matlab.ui.Figure')
+        hfig = gcf;
+    end
+
+    % Parse configuration options
     p = inputParser;
     % Zoom configuration options
     p.addOptional('Magnify', 1.1, @isnumeric);
@@ -59,9 +65,11 @@ function imgzoompan(hfig, varargin)
     p.addOptional('IncreaseChange', 1.1, @isnumeric);
     p.addOptional('MinValue', 1.1, @isnumeric);
     p.addOptional('MaxZoomScrollCount', 30, @isnumeric);
+
     % Pan configuration options
     p.addOptional('ImgWidth', 0, @isnumeric);
     p.addOptional('ImgHeight', 0, @isnumeric);
+
     % Mouse options and callbacks
     p.addOptional('PanMouseButton', 2, @isnumeric);
     p.addOptional('ResetMouseButton', 3, @isnumeric);
@@ -71,8 +79,6 @@ function imgzoompan(hfig, varargin)
     % Parse & Sanitize options
     parse(p, varargin{:});
     opt = p.Results;
-
-    hfig = gcf;
 
     if opt.Magnify<opt.MinValue
         opt.Magnify=opt.MinValue;
@@ -84,7 +90,9 @@ function imgzoompan(hfig, varargin)
         opt.IncreaseChange=opt.MinValue;
     end
 
-    % Prepare mouse callbacks
+
+
+    % Set up callback functions
     set(hfig, 'WindowScrollWheelFcn', @zoom_fcn);
     set(hfig, 'WindowButtonDownFcn', @down_fcn);
     set(hfig, 'WindowButtonUpFcn', @up_fcn);
@@ -93,6 +101,11 @@ function imgzoompan(hfig, varargin)
     orig.h=[];
     orig.XLim=[];
     orig.YLim=[];
+
+
+
+    % -------------------------------
+    % Nested callback functions, etc, follow
 
 
     % Applies zoom
@@ -192,14 +205,15 @@ function imgzoompan(hfig, varargin)
     function startPan(hAx)
         hFig = ancestor(hAx, 'Figure', 'toplevel');   % Parent Fig
 
-        seedPt = get(hAx, 'CurrentPoint');           % Get init mouse position
-        seedPt = seedPt(1, :);                       % Keep only 1st point
+        seedPt = get(hAx, 'CurrentPoint'); % Get init mouse position
+        seedPt = seedPt(1, :); % Keep only 1st point
 
-        hAx.XLimMode = 'manual';                    % Temp stop 'auto resizing'
+        % Temporarily stop 'auto resizing'
+        hAx.XLimMode = 'manual'; 
         hAx.YLimMode = 'manual';
 
         set(hFig,'WindowButtonMotionFcn',{@panningFcn,hAx,seedPt});
-        setptr(hFig, 'hand');                        % Assign 'Panning' cursor
+        setptr(hFig, 'hand'); % Assign 'Panning' cursor
     end %startPan
 
 

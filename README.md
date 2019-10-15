@@ -1,5 +1,5 @@
 # MATLAB IMAGE ZOOM & PAN
-A MatLab code plugin that provides mouse zoom &amp; pan functionality for 2D images.
+A MATLAB code plugin that provides mouse zoom &amp; pan functionality for 2D images.
 
 The function adds instant mouse zoom (mouse wheel) and pan (mouse drag) capabilities to figures,
 designed for displaying 2D images in applications (e.g. GUIDE) that require lots of drag & zoom.
